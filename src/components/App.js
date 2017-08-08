@@ -14,10 +14,13 @@ class App extends Component {
         let showMovieTabs = [];
         showMovieTabs = e.results.map((item, index) => {
             return (<div key={index} className={"movieTabsChild"}>
-                <img className={"movieTabsChild-Img"} src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}/>
-                  <p className={"movieTabsChild-date"}>{item.release_date}</p>
-                  <p className={"movieTabsChild-title"}>{item.title}</p>
-                </div>);
+                      <img className={"movieTabsChild-Img"} src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}/>
+                      <div className={"movieTabsChild-wrapper"}>
+                        <p className={"movieTabsChild-date"}>{item.release_date}</p>
+                        <p className={"movieTabsChild-language"}>{item.original_language}</p>
+                        <p className={"movieTabsChild-title"}>{item.title}</p>
+                      </div>
+                    </div>);
         })
         this.setState({
             showMovies: (<div className={"movieTabsparent"}>

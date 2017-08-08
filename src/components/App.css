@@ -36,7 +36,7 @@
     position: relative;
     display: inline-block;
     width: 301px;
-    height: 305px;
+    height: 345px;
 }
 
 .movieTabsChild-Img {
@@ -52,4 +52,12 @@
     position: absolute;
     top: 313px;
     right: 135px;
+}
+
+.movieTabsChild-wrapper {
+    width: 279px;
+}
+
+.movieTabsChild-language {
+    position: absolute;
 }
