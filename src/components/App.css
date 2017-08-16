@@ -43,6 +43,10 @@
     width: 100%;
 }
 
+div>p {
+    color: #ff0000;
+}
+
 .movieTabsChild-date {
     position: absolute;
     top: 9px;
