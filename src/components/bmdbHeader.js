@@ -1,8 +1,8 @@
 /*BMDB Search Header*/
 
-import React, { Component } from 'react';
-import { Navbar, Image, NavItem, Nav } from 'react-bootstrap';
-import BMDBImage from '../img/logo.png';
+import React, { Component } from "react";
+import { Navbar, Image, NavItem, Nav } from "react-bootstrap";
+import BMDBImage from "../img/logo.png";
 
 class BMDBHeader extends Component {
     constructor(props) {
@@ -13,14 +13,18 @@ class BMDBHeader extends Component {
         return (
             <Navbar className={"BNDBHeader"}>
                 <Navbar.Header>
-                <Image className={'header-logo'} src={BMDBImage}/>
+                    <Image className={"header-logo"} src={BMDBImage} />
                 </Navbar.Header>
                 <Nav className={"header-pullright"}>
-                <NavItem>{"POPULAR"}</NavItem>
-                <NavItem>{"FAVORITES"}</NavItem>
+                    <NavItem>
+                        {"POPULAR"}
+                    </NavItem>
+                    <NavItem>
+                        {"FAVORITES"}
+                    </NavItem>
                 </Nav>
             </Navbar>
-        )
+        );
     }
 }
 
