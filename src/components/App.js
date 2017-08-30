@@ -12,6 +12,7 @@ import "./App.css";
 import BMDBHeader from "./bmdbHeader.js";
 import BMDBImage from "../img/logo.png";
 import Test from "../test/test.js";
+import tmdbVisibility from "../containers/tmdbVisibility";
 
 let initYear = 2010;
 const sortRating = [
@@ -133,6 +134,7 @@ class App extends Component {
                     {this._sortYear()}
                 </div>
                 {this.state.showMovies}
+                <tmdbVisibility />
             </div>
         );
     }

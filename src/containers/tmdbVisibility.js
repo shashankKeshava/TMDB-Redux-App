@@ -1,21 +1,26 @@
 import { connect } from 'react-redux';
+import { getMovieList } from '../actions';
 import tmdbApp from '../components/App.js';
 
-const getMovieList = (movie, filter) => {
-    switch (filter) {
-        return { movie: 'Test Movie' };
-    }
+/*const getMovieList = (movie, filter) => {
+    //switch (filter) {
+    return { movie: 'Test Movie' };
+    //}
 }
-
+*/
 
 const mapToStateToProps = state => {
     return {
-        movieList: getMovieList(state.movieList, state.filter)
+        movieList: getMovieList()
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    return true;
+    return {
+        onClick: () => {
+            console.log("Clicked");
+        }
+    }
 }
 
 const tmdbVisibility = connect(
