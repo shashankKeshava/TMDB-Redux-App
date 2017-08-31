@@ -123,8 +123,9 @@ class App extends Component {
     }
 
     componentDidMount = () => {
-        this._fetchPopularMovies();
-    };
+        // this._fetchPopularMovies();
+        //this.
+    }
     render() {
         return (
             <div>
@@ -133,8 +134,9 @@ class App extends Component {
                     {this._sortRating()}
                     {this._sortYear()}
                 </div>
-                {this.state.showMovies}
-                <tmdbVisibility />
+                <tmdbVisibility>
+                    {this.state.showMovies}
+                </tmdbVisibility>
             </div>
         );
     }
