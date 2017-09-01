@@ -12,7 +12,6 @@ import "./App.css";
 import BMDBHeader from "./bmdbHeader.js";
 import BMDBImage from "../img/logo.png";
 import Test from "../test/test.js";
-import tmdbVisibility from "../containers/tmdbVisibility";
 
 let initYear = 2010;
 const sortRating = [
@@ -123,9 +122,8 @@ class App extends Component {
     }
 
     componentDidMount = () => {
-        // this._fetchPopularMovies();
-        //this.
-    }
+        this.props._fetchMovieList;
+    };
     render() {
         return (
             <div>
@@ -134,9 +132,7 @@ class App extends Component {
                     {this._sortRating()}
                     {this._sortYear()}
                 </div>
-                <tmdbVisibility>
-                    {this.state.showMovies}
-                </tmdbVisibility>
+                {this.state.showMovies}
             </div>
         );
     }

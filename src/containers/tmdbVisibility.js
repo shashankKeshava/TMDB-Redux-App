@@ -2,12 +2,16 @@ import { connect } from "react-redux";
 import { getMovieList } from "../actions";
 import App from "../components/App.js";
 import React from "react";
+import { bindActionCreators } from 'redux'
 
 class tmdbApp extends React.Component {
     render() {
         return (
             <div>
-                <App />
+                <App
+                    movieList={this.props.movieList}
+                    _fetchMovieList={this.props.getMovieList}
+                />
             </div>
         );
     }
@@ -15,20 +19,11 @@ class tmdbApp extends React.Component {
 
 const mapToStateToProps = state => {
     return {
-        movieList: getMovieList()
+        movieList: state.ratingFilter.movieList
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        onClick: () => {
-            console.log("Clicked");
-        },
-        dispatch: () => {
-            dispatch(getMovieList);
-        }
-    };
-};
+const mapDispatchToProps = dispatch => bindActionCreators({ getMovieList }, dispatch)
 
 const tmdbVisibility = connect(mapToStateToProps, mapDispatchToProps)(tmdbApp);
 

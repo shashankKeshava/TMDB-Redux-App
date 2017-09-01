@@ -11,21 +11,30 @@ registerServiceWorker();*/
 import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import { createLogger } from "redux-logger";
+import thunk from "redux-thunk";
 //import todoApp from "./reducers";
 import bmdbApp from "./reducers";
 //import App from "./components/Apps";
-import App from "./components/App";
+import App from "./containers/tmdbVisibility";
 
+
+const logger = createLogger({
+    timestamp: true
+})
 
 let store = createStore(
-    bmdbApp, /* preloadedState, */ window.__REDUX_DEVTOOLS_EXTENSION__ &&
+    bmdbApp,
+    applyMiddleware([logger, thunk]),
+    /* preloadedState, */
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
     window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 render(
     <Provider store={store}>
-		<App />
-	</Provider>,
+        <App />
+    </Provider>,
     document.getElementById("root")
 );

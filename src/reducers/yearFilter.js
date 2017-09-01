@@ -1,4 +1,9 @@
+const initialState = {
+    movieList: []
+};
+
+
 const yearFilter = (state = [], action) => {
-    return state;
+    return Object.assign({}, initialState);
 }
 export default yearFilter;
