@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { getMovieList } from "../actions";
-import App from "../components/App.js";
+import MovieTiles from "../components/movieTiles.js";
 import React from "react";
 import { bindActionCreators } from 'redux'
 
@@ -8,7 +8,7 @@ class tmdbApp extends React.Component {
     render() {
         return (
             <div>
-                <App
+                <MovieTiles
                     movieList={this.props.movieList}
                     _fetchMovieList={this.props.getMovieList}
                 />

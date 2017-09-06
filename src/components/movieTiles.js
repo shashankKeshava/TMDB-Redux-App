@@ -8,7 +8,7 @@ import {
     DropdownButton,
     MenuItem
 } from "react-bootstrap";
-import "./App.css";
+import "./movieTiles.css";
 import BMDBHeader from "./bmdbHeader.js";
 import BMDBImage from "../img/logo.png";
 import Test from "../test/test.js";
