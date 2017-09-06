@@ -21,7 +21,7 @@ const sortRating = [
     "Popularity: High"
 ];
 
-class App extends Component {
+class MovieTiles extends Component {
     _showMovieTabs = e => {
         let showMovieTabs = [];
         showMovieTabs = e.results.map((item, index) => {
@@ -138,4 +138,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default MovieTiles;
