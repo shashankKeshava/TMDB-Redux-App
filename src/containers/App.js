@@ -5,6 +5,9 @@ import React from "react";
 import { bindActionCreators } from 'redux'
 
 class tmdbApp extends React.Component {
+    componentDidMount = () => {
+        store.dispatch(getMovieList);
+    }
     render() {
         return (
             <div>
