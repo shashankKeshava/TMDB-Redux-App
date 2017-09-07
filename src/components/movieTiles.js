@@ -9,7 +9,6 @@ import {
     MenuItem
 } from "react-bootstrap";
 import "./movieTiles.css";
-import BMDBHeader from "./bmdbHeader.js";
 import BMDBImage from "../img/logo.png";
 import Test from "../test/test.js";
 
@@ -22,8 +21,15 @@ const sortRating = [
 ];
 
 class MovieTiles extends Component {
-    _showMovieTabs = e => {
+    _showMovieTabs = (e = []) => {
         let showMovieTabs = [];
+        if (this.props.isLoading) {
+            return (
+                <div className={"movieTabsparent"}>
+                    <h3>Loading Movies....</h3>
+                </div>
+            );
+        }
         showMovieTabs = e.results.map((item, index) => {
             return (
                 <div key={index} className={"movieTabsChild"}>
@@ -45,94 +51,20 @@ class MovieTiles extends Component {
                 </div>
             );
         });
-        this.setState({
-            showMovies: (
-                <div className={"movieTabsparent"}>
-                    {showMovieTabs}
-                </div>
-            )
-        });
-    };
-    _fetchPopularMovies = () => {
-        let popularMovies;
-        // Use Fetch To make API Calls
-        request
-            .get(
-                "https://api.themoviedb.org/3/movie/popular?api_key=a0bc683500a8905f2d1868a85a282281&language=en-US&page=1"
-            )
-            .end((err, res) => {
-                popularMovies = this._showMovieTabs(res.body);
-            });
-
-        const hostname =
-            "https://api.themoviedb.org/3/movie/popular?api_key=a0bc683500a8905f2d1868a85a282281&language=en-US&page=1";
-        const options = {
-            method: "GET",
-            port: null
-        };
-        fetch(hostname, options).then(res => {
-            console.log("Fetch", res);
-        });
-    };
-
-    _sortRating = () => {
-        let sortItems = [];
-        sortItems = sortRating.map((item, index) => {
-            return (
-                <MenuItem key={index.toString()}>
-                    {item}
-                </MenuItem>
-            );
-        });
         return (
-            <DropdownButton
-                title={"Sort By"}
-                className={"BMDB-rating-filter"}
-                id={"BMDB-rating-filter"}
-            >
-                {sortItems}
-            </DropdownButton>
+            <div className={"movieTabsparent"}>
+                {showMovieTabs}
+            </div>
         );
     };
-    _sortYear = () => {
-        let yearMenuItem = [];
-        while (initYear <= 2017) {
-            yearMenuItem.push(
-                <MenuItem key={initYear.toString()}>
-                    {initYear}
-                </MenuItem>
-            );
-            initYear++;
-        }
-        return (
-            <DropdownButton
-                title={"Sort By"}
-                className={"BMDB-year-filter"}
-                id={"BMDB-year-filter"}
-            >
-                {yearMenuItem}
-            </DropdownButton>
-        );
-    };
+
     constructor(props) {
         super(props);
-        this.state = {
-            showMovies: null
-        };
     }
-
-    componentDidMount = () => {
-        this.props._fetchMovieList;
-    };
     render() {
         return (
             <div>
-                <BMDBHeader />
-                <div>
-                    {this._sortRating()}
-                    {this._sortYear()}
-                </div>
-                {this.state.showMovies}
+                {this._showMovieTabs(this.props.movieList)}
             </div>
         );
     }

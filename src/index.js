@@ -18,18 +18,21 @@ import thunk from "redux-thunk";
 import bmdbApp from "./reducers";
 //import App from "./components/Apps";
 import App from "./containers/App.js";
+import "./index.css";
 
 
 const logger = createLogger({
     timestamp: true
 })
 
+const initialState = {};
+
 let store = createStore(
     bmdbApp,
-    applyMiddleware([logger, thunk]),
+    initialState,
+    applyMiddleware(thunk, logger),
     /* preloadedState, */
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION__()
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 render(
