@@ -1,20 +1,20 @@
 import { FETCH_MOVIES } from "../utils/actionTypes.js";
 
-const intialState = {
+const initialState = {
     movieList: [],
-    isLoading: true
+    isLoading: true,
+    type: FETCH_MOVIES
 };
 
-const fetchReducer = (state = intialState, action) => {
+const fetchReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_MOVIES:
-            return {
-                ...state,
-                movieList: action.result,
+            return Object.assign({}, state, {
+                movieList: action,
                 isLoading: false
-            };
+            });
         default:
-            return intialState;
+            return state;
     }
 }
 

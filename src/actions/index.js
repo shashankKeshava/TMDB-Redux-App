@@ -1,4 +1,4 @@
-import { FETCH_MOVIES, UNSORT } from "../utils/actionTypes.js"
+import { FETCH_MOVIES, UNSORT, SORT_YEAR } from "../utils/actionTypes.js"
 
 export const getMovieList = (url) => dispatch => {
     let popularMovies = [];
@@ -8,14 +8,21 @@ export const getMovieList = (url) => dispatch => {
         .then((list) => {
             return dispatch({
                 type: FETCH_MOVIES,
-                result: list
+                ...list
             });
         })
 };
 
-export const sortByRating = (sortType = UNSORT, payload) => dispatch => {
+export const sortByRating = (type = UNSORT, payload) => dispatch => {
     return dispatch({
-        payload,
-        type: sortType
+        type,
+        payload
+    })
+}
+
+export const sortByYear = (type = SORT_YEAR, payload) => dispatch => {
+    return dispatch({
+        type,
+        payload
     })
 }

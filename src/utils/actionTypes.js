@@ -5,3 +5,4 @@ export const SORT_HIGH = "SORT_HIGH";
 export const SORT_POP_LOW = "SORT_POP_LOW";
 export const SORT_POP_HIGH = "SORT_POP_HIGH";
 export const SORT_YEAR = "SORT_YEAR";
+export const SEARCH_MOVIE = "SEARCH_MOVIE";

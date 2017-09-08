@@ -2,7 +2,8 @@ import { connect } from "react-redux";
 import React from "react";
 import { bindActionCreators } from "redux";
 
-import { getMovieList, sortByRating } from "../actions";
+import { getMovieList, sortByRating, sortByYear } from "../actions";
+import { UNSORT } from "../utils/actionTypes.js";
 import MovieTiles from "../components/movieTiles.js";
 import {
     Navbar,
@@ -17,42 +18,94 @@ import BMDBHeader from "../components/bmdbHeader.js";
 const fields = require("../utils/config.js");
 
 class tmdbApp extends React.Component {
-    handleRatingChange = (item, e) => {
-        this.props.sortByRating(item, this.props.movieList);
-    }
+    handleRatingChange = item => {
+        this.props.sortByRating(!!item ? item.type : null, {
+            ...this.props.movieList
+        });
+        this.setState({
+            ratingSeletedValue: !!item ? item.value : null
+        });
+    };
+    handleYearChange = item => {
+        this.props.sortByYear(!!item ? item.type : null, {
+            ...this.props.movieList
+        });
+        this.setState({
+            yearSeletedValue: !!item ? item.value : null
+        });
+    };
     _sortRating = () => {
         let sortItems = [];
         return (
             <Select
-                value="Select"
+                autofocus
+                searchable={this.state.searchable}
+                disabled={this.state.disabled}
+                clearable={this.state.clearable}
+                value={this.state.ratingSeletedValue}
                 placeholder={fields.ratingFilter.displayName}
                 options={fields.ratingFilter.payload}
                 className={"BMDB-rating-filter"}
+                onChange={this.handleRatingChange}
             />
-        )
-    }
+        );
+    };
     _sortYear = () => {
         let yearMenuItem = [];
         let initYear = fields.yearFilter.payload;
         while (initYear <= 2017) {
-            yearMenuItem.push({ label: initYear, value: initYear, type: fields.yearFilter.type });
+            yearMenuItem.push({
+                label: initYear,
+                value: initYear,
+                type: fields.yearFilter.type
+            });
             initYear++;
         }
         return (
             <Select
-            value="Select"
-            placeholder={fields.yearFilter.displayName}
-            options={yearMenuItem}
-            className={"BMDB-year-filter"}
+                autofocus
+                searchable={this.state.searchable}
+                disabled={this.state.disabled}
+                clearable={this.state.clearable}
+                value={this.state.yearSelectedValue}
+                placeholder={fields.yearFilter.displayName}
+                options={yearMenuItem}
+                className={"BMDB-year-filter"}
+                onChange={this.handleYearChange}
             />
         );
-    }
+    };
+    _movieSection = () => {
+        if (this.props.sortedMovies.payload.length) {
+            return (
+                <MovieTiles
+                    isLoading={this.props.isLoading}
+                    movieList={this.props.sortedMovies.payload}
+                    _fetchMovieList={this.props.getMovieList}
+                />
+            );
+        }
+        return (
+            <MovieTiles
+                isLoading={this.props.isLoading}
+                movieList={this.props.movieList}
+                _fetchMovieList={this.props.getMovieList}
+            />
+        );
+    };
     constructor(props) {
         super(props);
+        this.state = {
+            clearable: true,
+            disabled: false,
+            searchable: true,
+            ratingSelectedValue: null,
+            yearSelectedValue: null
+        };
     }
     componentDidMount = () => {
         this.props.getMovieList();
-    }
+    };
     render() {
         return (
             <div>
@@ -61,11 +114,7 @@ class tmdbApp extends React.Component {
                     {this._sortRating()}
                     {this._sortYear()}
                 </div>
-                <MovieTiles
-                    isLoading={this.props.isLoading}
-                    movieList={this.props.movieList}
-                    _fetchMovieList={this.props.getMovieList}
-                />
+                {this._movieSection()}
             </div>
         );
     }
@@ -73,7 +122,13 @@ class tmdbApp extends React.Component {
 
 const mapToStateToProps = state => {
     return {
-        movieList: state.fetchReducer.movieList,
+        pageNumber: state.fetchReducer.movieList.page,
+        sortedMovies: {
+            type: state.sortReducer.type,
+            payload: state.sortReducer.sortedList || []
+        },
+        type: state.fetchReducer.movieList.type,
+        movieList: state.fetchReducer.movieList.results,
         isLoading: state.fetchReducer.isLoading
     };
 };
@@ -81,7 +136,8 @@ const mapToStateToProps = state => {
 const mapDispatchToProps = dispatch =>
     bindActionCreators({
             getMovieList,
-            sortByRating
+            sortByRating,
+            sortByYear
         },
         dispatch
     );

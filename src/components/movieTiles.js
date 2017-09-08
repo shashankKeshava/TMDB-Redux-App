@@ -12,14 +12,6 @@ import "./movieTiles.css";
 import BMDBImage from "../img/logo.png";
 import Test from "../test/test.js";
 
-let initYear = 2010;
-const sortRating = [
-    "Rating: Low",
-    "Rating: High",
-    "Popularity: Low",
-    "Popularity: High"
-];
-
 class MovieTiles extends Component {
     _showMovieTabs = (e = []) => {
         let showMovieTabs = [];
@@ -30,7 +22,7 @@ class MovieTiles extends Component {
                 </div>
             );
         }
-        showMovieTabs = e.results.map((item, index) => {
+        showMovieTabs = e.map((item, index) => {
             return (
                 <div key={index} className={"movieTabsChild"}>
                     <img
