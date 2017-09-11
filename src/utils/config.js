@@ -8,18 +8,18 @@ const {
 } = require("./actionTypes.js");
 
 const months = {
-    01: "Jan",
-    02: "Feb",
-    03: "Mar",
-    04: "Apr",
-    05: "May",
-    06: "Jun",
-    07: "Jul",
-    08: "Aug",
-    09: "Sep",
-    10: "Oct",
-    11: "Nov",
-    12: "Dec"
+    0: "Jan",
+    1: "Feb",
+    2: "Mar",
+    3: "Apr",
+    4: "May",
+    5: "Jun",
+    6: "Jul",
+    7: "Aug",
+    8: "Sep",
+    9: "Oct",
+    10: "Nov",
+    11: "Dec"
 };
 
 module.exports = {
@@ -28,8 +28,8 @@ module.exports = {
         payload: 2010,
         type: SORT_YEAR,
         dateFormatter: movieDate => {
-            const newDate = movieDate.split("-");
-            return `${newDate[2]} ${months[newDate[1]]} ${newDate[0]}`;
+            const formattedDate = new Date(movieDate);
+            return `${formattedDate.getDate()} ${months[formattedDate.getMonth()]} ${formattedDate.getFullYear()}`;
         }
     },
     ratingFilter: {

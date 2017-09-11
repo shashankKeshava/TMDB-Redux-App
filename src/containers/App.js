@@ -19,19 +19,15 @@ const fields = require("../utils/config.js");
 
 class tmdbApp extends React.Component {
     handleRatingChange = item => {
-        this.props.sortByRating(!!item ? item.type : null, {
-            ...this.props.movieList
-        });
+        this.props.sortByRating(!!item ? item.type : UNSORT, this.props.movieList);
         this.setState({
             ratingSeletedValue: !!item ? item.value : null
         });
     };
     handleYearChange = item => {
-        this.props.sortByYear(!!item ? item.type : null, {
-            ...this.props.movieList
-        });
+        this.props.sortByYear(!!item ? item.type : UNSORT, !!item ? item.label : null, this.props.movieList);
         this.setState({
-            yearSeletedValue: !!item ? item.value : null
+            yearSelectedValue: !!item ? item.label : null
         });
     };
     _sortRating = () => {
@@ -100,7 +96,8 @@ class tmdbApp extends React.Component {
             disabled: false,
             searchable: true,
             ratingSelectedValue: null,
-            yearSelectedValue: null
+            yearSelectedValue: null,
+            sortedMovies: null
         };
     }
     componentDidMount = () => {

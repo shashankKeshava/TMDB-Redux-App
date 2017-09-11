@@ -20,9 +20,10 @@ export const sortByRating = (type = UNSORT, payload) => dispatch => {
     })
 }
 
-export const sortByYear = (type = SORT_YEAR, payload) => dispatch => {
+export const sortByYear = (type = UNSORT, year, payload) => dispatch => {
     return dispatch({
         type,
+        year,
         payload
     })
 }

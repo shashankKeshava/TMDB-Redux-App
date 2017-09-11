@@ -11,6 +11,7 @@ import {
 import "./movieTiles.css";
 import BMDBImage from "../img/logo.png";
 import Test from "../test/test.js";
+import config from "../utils/config.js";
 
 class MovieTiles extends Component {
     _showMovieTabs = (e = []) => {
@@ -31,7 +32,7 @@ class MovieTiles extends Component {
                     />
                     <div className={"movieTabsChild-wrapper"}>
                         <p className={"movieTabsChild-date"}>
-                            {item.release_date}
+                            {config.yearFilter.dateFormatter(item.release_date)}
                         </p>
                         <p className={"movieTabsChild-language"}>
                             {item.original_language}

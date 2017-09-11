@@ -16,13 +16,8 @@ const initialState = {
 
 const sortReducer = (prevState = initialState, action) => {
     let sortedMovieList = [];
-    let movieDate = [];
+    let movieDate = null;
     switch (action.type) {
-        case UNSORT:
-            return Object.assign({}, {
-                ...prevState,
-                movieList: action.payload
-            });
         case SORT_LOW:
             sortedMovieList = _.orderBy(
                 action.payload, ["vote_count"], ["asc"]
@@ -56,10 +51,20 @@ const sortReducer = (prevState = initialState, action) => {
                 sortedList: sortedMovieList
             });
         case SORT_YEAR:
-            sortedMovieList = action.payload.filter((movie) => {
-                movieDate = movie.split("-");
-                return movieDate[0] == action.value ? movie : ;
-            })
+            sortedMovieList = action.payload.filter(movie => {
+                movieDate = new Date(movie.release_date);
+                return (movieDate.getFullYear() == action.year ? movie : false);
+            });
+            return Object.assign({}, ...prevState, {
+                type: action.type,
+                sortedList: sortedMovieList
+            });
+        case UNSORT:
+            return Object.assign({}, {
+                ...prevState,
+                sortedList: [],
+                movieList: action.payload
+            });
         default:
             return Object.assign({}, prevState, {
                 movieList: action.payload
