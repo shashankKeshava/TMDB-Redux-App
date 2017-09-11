@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import { Navbar, Image, NavItem, Nav } from "react-bootstrap";
 import BMDBImage from "../img/logo.png";
+import "./bmdbHeader.css";
 
 class BMDBHeader extends Component {
     constructor(props) {

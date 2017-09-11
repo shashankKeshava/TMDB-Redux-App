@@ -19,13 +19,20 @@ const fields = require("../utils/config.js");
 
 class tmdbApp extends React.Component {
     handleRatingChange = item => {
-        this.props.sortByRating(!!item ? item.type : UNSORT, this.props.movieList);
+        const type = !!item ? item.type : UNSORT;
+        const payload = this.props.sortedMovies.isSorting ? this.props.sortedMovies.payload : this.props.movieList;
+
+        this.props.sortByRating(type, payload);
         this.setState({
-            ratingSeletedValue: !!item ? item.value : null
+            ratingSelectedValue: !!item ? item.value : null
         });
     };
     handleYearChange = item => {
-        this.props.sortByYear(!!item ? item.type : UNSORT, !!item ? item.label : null, this.props.movieList);
+        const type = !!item ? item.type : UNSORT;
+        const label = !!item ? item.label : null;
+        const payload = this.props.sortedMovies.isSorting ? this.props.sortedMovies.payload : this.props.movieList;
+
+        this.props.sortByYear(type, label, payload);
         this.setState({
             yearSelectedValue: !!item ? item.label : null
         });
@@ -38,7 +45,7 @@ class tmdbApp extends React.Component {
                 searchable={this.state.searchable}
                 disabled={this.state.disabled}
                 clearable={this.state.clearable}
-                value={this.state.ratingSeletedValue}
+                value={this.state.ratingSelectedValue}
                 placeholder={fields.ratingFilter.displayName}
                 options={fields.ratingFilter.payload}
                 className={"BMDB-rating-filter"}
@@ -72,7 +79,7 @@ class tmdbApp extends React.Component {
         );
     };
     _movieSection = () => {
-        if (this.props.sortedMovies.payload.length) {
+        if (!!this.props.sortedMovies.isSorting) {
             return (
                 <MovieTiles
                     isLoading={this.props.isLoading}
@@ -107,7 +114,7 @@ class tmdbApp extends React.Component {
         return (
             <div>
                 <BMDBHeader />
-                <div>
+                <div className={"sortFilters"}>
                     {this._sortRating()}
                     {this._sortYear()}
                 </div>
@@ -122,7 +129,8 @@ const mapToStateToProps = state => {
         pageNumber: state.fetchReducer.movieList.page,
         sortedMovies: {
             type: state.sortReducer.type,
-            payload: state.sortReducer.sortedList || []
+            payload: state.sortReducer.sortedList || [],
+            isSorting: state.sortReducer.isSorting
         },
         type: state.fetchReducer.movieList.type,
         movieList: state.fetchReducer.movieList.results,

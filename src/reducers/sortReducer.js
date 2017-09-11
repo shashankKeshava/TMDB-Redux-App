@@ -10,7 +10,6 @@ import {
 
 const initialState = {
     type: UNSORT,
-    isLoading: true,
     sortedList: []
 };
 
@@ -22,52 +21,59 @@ const sortReducer = (prevState = initialState, action) => {
             sortedMovieList = _.orderBy(
                 action.payload, ["vote_count"], ["asc"]
             );
-            return Object.assign({}, ...prevState, {
+            return Object.assign({}, prevState, {
                 type: action.type,
-                sortedList: sortedMovieList
+                sortedList: sortedMovieList,
+                isSorting: true
             });
         case SORT_HIGH:
             sortedMovieList = _.orderBy(
                 action.payload, ["vote_count"], ["desc"]
             );
-            return Object.assign({}, ...prevState, {
+            return Object.assign({}, prevState, {
                 type: action.type,
-                sortedList: sortedMovieList
+                sortedList: sortedMovieList,
+                isSorting: true
             });
         case SORT_POP_LOW:
             sortedMovieList = _.orderBy(
                 action.payload, ["popularity"], ["asc"]
             );
-            return Object.assign({}, ...prevState, {
+            return Object.assign({}, prevState, {
                 type: action.type,
-                sortedList: sortedMovieList
+                sortedList: sortedMovieList,
+                isSorting: true
             });
         case SORT_POP_HIGH:
             sortedMovieList = _.orderBy(
                 action.payload, ["popularity"], ["desc"]
             );
-            return Object.assign({}, ...prevState, {
+            return Object.assign({}, prevState, {
                 type: action.type,
-                sortedList: sortedMovieList
+                sortedList: sortedMovieList,
+                isSorting: true
             });
         case SORT_YEAR:
             sortedMovieList = action.payload.filter(movie => {
                 movieDate = new Date(movie.release_date);
-                return (movieDate.getFullYear() == action.year ? movie : false);
+                return movieDate.getFullYear() == action.year ? movie : false;
             });
-            return Object.assign({}, ...prevState, {
+            return Object.assign({}, prevState, {
                 type: action.type,
-                sortedList: sortedMovieList
+                sortedList: sortedMovieList,
+                isSorting: true
             });
         case UNSORT:
-            return Object.assign({}, {
-                ...prevState,
+            return Object.assign({}, prevState, {
                 sortedList: [],
+                isSorting: false,
+                type: action.type,
                 movieList: action.payload
             });
         default:
             return Object.assign({}, prevState, {
-                movieList: action.payload
+                movieList: action.payload,
+                isSorting: false
             });
     }
 };

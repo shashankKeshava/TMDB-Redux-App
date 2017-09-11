@@ -13,6 +13,7 @@ export const getMovieList = (url) => dispatch => {
         })
 };
 
+//Action: Sort By Rating 
 export const sortByRating = (type = UNSORT, payload) => dispatch => {
     return dispatch({
         type,
@@ -20,6 +21,7 @@ export const sortByRating = (type = UNSORT, payload) => dispatch => {
     })
 }
 
+//Action: Sort By Year 
 export const sortByYear = (type = UNSORT, year, payload) => dispatch => {
     return dispatch({
         type,
