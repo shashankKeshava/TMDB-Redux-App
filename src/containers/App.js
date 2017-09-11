@@ -20,7 +20,7 @@ const fields = require("../utils/config.js");
 class tmdbApp extends React.Component {
     handleRatingChange = item => {
         const type = !!item ? item.type : UNSORT;
-        const payload = this.props.sortedMovies.isSorting ? this.props.sortedMovies.payload : this.props.movieList;
+        const payload = this.props.sortedMovies.isSorting && !!item ? this.props.sortedMovies.payload : this.props.movieList;
 
         this.props.sortByRating(type, payload);
         this.setState({
@@ -30,7 +30,7 @@ class tmdbApp extends React.Component {
     handleYearChange = item => {
         const type = !!item ? item.type : UNSORT;
         const label = !!item ? item.label : null;
-        const payload = this.props.sortedMovies.isSorting ? this.props.sortedMovies.payload : this.props.movieList;
+        const payload = this.props.movieList;
 
         this.props.sortByYear(type, label, payload);
         this.setState({
