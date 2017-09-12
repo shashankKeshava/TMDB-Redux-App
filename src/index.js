@@ -18,7 +18,7 @@ import thunk from "redux-thunk";
 import bmdbApp from "./reducers";
 //import App from "./components/Apps";
 import App from "./containers/App.js";
-import "./index.css";
+import "./index.less";
 
 
 const logger = createLogger({

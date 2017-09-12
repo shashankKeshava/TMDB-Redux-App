@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import { Navbar, Image, NavItem, Nav, FormGroup, FormControl } from "react-bootstrap";
 import BMDBImage from "../img/logo.png";
-import "./bmdbHeader.css";
+import "./bmdbHeader.less";
 
 class BMDBHeader extends Component {
     constructor(props) {

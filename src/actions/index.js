@@ -30,6 +30,7 @@ export const sortByYear = (type = UNSORT, year, payload) => dispatch => {
     })
 }
 
+//Action: Sort By Search
 export const sortBySearch = (type = UNSORT, searchTerm, payload) => dispatch => {
     return dispatch({
         type,
