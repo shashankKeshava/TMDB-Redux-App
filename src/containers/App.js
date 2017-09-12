@@ -2,8 +2,13 @@ import { connect } from "react-redux";
 import React from "react";
 import { bindActionCreators } from "redux";
 
-import { getMovieList, sortByRating, sortByYear } from "../actions";
-import { UNSORT } from "../utils/actionTypes.js";
+import {
+    getMovieList,
+    sortByRating,
+    sortByYear,
+    sortBySearch
+} from "../actions";
+import { UNSORT, SEARCH_MOVIE } from "../utils/actionTypes.js";
 import MovieTiles from "../components/movieTiles.js";
 import {
     Navbar,
@@ -20,7 +25,10 @@ const fields = require("../utils/config.js");
 class tmdbApp extends React.Component {
     handleRatingChange = item => {
         const type = !!item ? item.type : UNSORT;
-        const payload = this.props.sortedMovies.isSorting && !!item ? this.props.sortedMovies.payload : this.props.movieList;
+        const payload =
+            this.props.sortedMovies.isSorting && !!item ?
+            this.props.sortedMovies.payload :
+            this.props.movieList;
 
         this.props.sortByRating(type, payload);
         this.setState({
@@ -78,6 +86,14 @@ class tmdbApp extends React.Component {
             />
         );
     };
+    handleMovieSearch = item => {
+        const type = !!item ? SEARCH_MOVIE : UNSORT;
+        const searchTerm = !!item ? item.target.value : null;
+        const payload = (!!this.state.ratingSelectedValue && !!this.state.yearSelectedValue) ?
+            this.props.sortedMovies.payload :
+            this.props.movieList;
+        this.props.sortBySearch(type, searchTerm, payload);
+    };
     _movieSection = () => {
         if (!!this.props.sortedMovies.isSorting) {
             return (
@@ -113,7 +129,7 @@ class tmdbApp extends React.Component {
     render() {
         return (
             <div>
-                <BMDBHeader />
+                <BMDBHeader searchMovie={this.handleMovieSearch} />
                 <div className={"sortFilters"}>
                     {this._sortRating()}
                     {this._sortYear()}
@@ -142,7 +158,8 @@ const mapDispatchToProps = dispatch =>
     bindActionCreators({
             getMovieList,
             sortByRating,
-            sortByYear
+            sortByYear,
+            sortBySearch
         },
         dispatch
     );

@@ -29,3 +29,11 @@ export const sortByYear = (type = UNSORT, year, payload) => dispatch => {
         payload
     })
 }
+
+export const sortBySearch = (type = UNSORT, searchTerm, payload) => dispatch => {
+    return dispatch({
+        type,
+        searchTerm,
+        payload
+    })
+}

@@ -23,6 +23,13 @@ class MovieTiles extends Component {
                 </div>
             );
         }
+        if (!this.props.isLoading && !e.length) {
+            return (
+                <div className={"movieTabsparent"}>
+                    <h3>No Movies Found that match the search criteria</h3>
+                </div>
+            );
+        }
         showMovieTabs = e.map((item, index) => {
             return (
                 <div key={index} className={"movieTabsChild"}>

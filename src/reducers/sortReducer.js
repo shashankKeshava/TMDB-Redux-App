@@ -5,6 +5,7 @@ import {
     SORT_POP_LOW,
     SORT_POP_HIGH,
     SORT_YEAR,
+    SEARCH_MOVIE,
     UNSORT
 } from "../utils/actionTypes.js";
 
@@ -63,6 +64,15 @@ const sortReducer = (prevState = initialState, action) => {
                 sortedList: sortedMovieList,
                 isSorting: true
             });
+        case SEARCH_MOVIE:
+            sortedMovieList = action.payload.filter(movie => {
+                return (movie.original_title.toLowerCase()).indexOf(action.searchTerm.toLowerCase()) > -1 ? movie : false;
+            })
+            return Object.assign({}, prevState, {
+                type: action.type,
+                sortedList: sortedMovieList,
+                isSorting: true
+            })
         case UNSORT:
             return Object.assign({}, prevState, {
                 sortedList: [],

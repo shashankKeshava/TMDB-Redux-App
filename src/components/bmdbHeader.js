@@ -1,7 +1,7 @@
 /*BMDB Search Header*/
 
 import React, { Component } from "react";
-import { Navbar, Image, NavItem, Nav } from "react-bootstrap";
+import { Navbar, Image, NavItem, Nav, FormGroup, FormControl } from "react-bootstrap";
 import BMDBImage from "../img/logo.png";
 import "./bmdbHeader.css";
 
@@ -22,6 +22,11 @@ class BMDBHeader extends Component {
                     </NavItem>
                     <NavItem>
                         {"FAVORITES"}
+                    </NavItem>
+                    <NavItem>
+                        <FormGroup>
+                            <FormControl type="text" placeholder="Search" onChange={this.props.searchMovie}/>
+                        </FormGroup>
                     </NavItem>
                 </Nav>
             </Navbar>
