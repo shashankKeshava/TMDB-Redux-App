@@ -20,6 +20,7 @@ import {
 } from "react-bootstrap";
 import Select from "react-select";
 import BMDBHeader from "../components/bmdbHeader.js";
+import "./App.less";
 const fields = require("../utils/config.js");
 
 class tmdbApp extends React.Component {
@@ -130,7 +131,7 @@ class tmdbApp extends React.Component {
         return (
             <div>
                 <BMDBHeader searchMovie={this.handleMovieSearch} />
-                <div className={"sortFilters"}>
+                <div className={"BMDB-sortFilters"}>
                     {this._sortRating()}
                     {this._sortYear()}
                 </div>
