@@ -19,12 +19,12 @@ class BMDBHeader extends Component {
 
     render() {
         return (
-            <Navbar className={"BNDBHeader"}>
-                <div className={"BNDBHeader-wrap"}>
+            <Navbar className={"BMDBHeader"}>
+                <div className={"BMDBHeader-wrap"}>
                     <Navbar.Header>
-                        <Image className={"BNDBHeader-logo"} src={BMDBImage} />
+                        <Image className={"BMDBHeader-logo"} src={BMDBImage} />
                     </Navbar.Header>
-                    <Nav className={"BNDBHeader-tabs"}>
+                    <Nav className={"BMDBHeader-tabs"}>
                         <NavItem>
                             {"POPULAR"}
                         </NavItem>
